@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import TodoListItem from '../todo-list-item/todo-list-item';
 import './todo-list.css';
 
-const TodoList = ({ todos }) => (
+const TodoList = ({ todos, onDelete }) => (
   <ul className="list-group todo-list">
     {todos.map((item) => {
       const { id, ...itemProps } = item;
       return (
         <li key={id} className="list-group-item">
-          <TodoListItem {...itemProps} />
+          <TodoListItem
+            {...itemProps}
+            onDelete={() => onDelete(id)}
+          />
         </li>
       );
     })}
@@ -23,6 +26,7 @@ TodoList.propTypes = {
       label: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default TodoList;

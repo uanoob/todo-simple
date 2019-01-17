@@ -22,7 +22,7 @@ class TodoListItem extends Component {
 
   render() {
     const { done, important } = this.state;
-    const { label } = this.props;
+    const { label, onDelete } = this.props;
     let classNames = 'todo-list-item';
     if (done) {
       classNames += ' done';
@@ -51,7 +51,11 @@ class TodoListItem extends Component {
           <i className="fa fa-exclamation" />
         </button>
 
-        <button type="button" className="btn btn-outline-danger btn-sm float-right">
+        <button
+          type="button"
+          className="btn btn-outline-danger btn-sm float-right"
+          onClick={onDelete}
+        >
           <i className="fa fa-trash-o" />
         </button>
       </span>
@@ -61,6 +65,7 @@ class TodoListItem extends Component {
 
 TodoListItem.propTypes = {
   label: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default TodoListItem;
