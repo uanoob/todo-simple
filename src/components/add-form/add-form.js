@@ -31,10 +31,15 @@ class AddForm extends Component {
   render() {
     const { label } = this.state;
     return (
-      <form className="add-form" onSubmit={this.onSubmitHandle}>
-        <input placeholder="Type to add new task" value={label} onChange={this.onChangeHandle} />
+      <form className="add-form d-flex" onSubmit={this.onSubmitHandle}>
+        <input
+          className="form-control"
+          placeholder="Type to add new task"
+          value={label}
+          onChange={this.onChangeHandle}
+        />
         <button className="btn btn-outline-secondary" type="submit">
-          Add Task
+          Add
         </button>
       </form>
     );

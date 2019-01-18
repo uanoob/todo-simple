@@ -14,6 +14,7 @@ class App extends Component {
       this.createTodoItem('Drink tea'),
       this.createTodoItem('Drink tomato'),
     ],
+    filter: 'all',
   };
 
   deleteItem = (id) => {
@@ -55,6 +56,12 @@ class App extends Component {
     }));
   };
 
+  handleStatusFilter = (status) => {
+    this.setState({
+      filter: status,
+    });
+  };
+
   createTodoItem(label) {
     this.newItem = {
       id: uuid(),
@@ -66,7 +73,14 @@ class App extends Component {
   }
 
   render() {
-    const { todoData } = this.state;
+    const { todoData, filter } = this.state;
+    let output = todoData;
+    if (filter === 'done') {
+      output = todoData.filter(item => item.done === true);
+    }
+    if (filter === 'active') {
+      output = todoData.filter(item => item.done === false);
+    }
     const doneCount = todoData.filter(item => item.done === true).length;
     const todoCount = todoData.length - doneCount;
     return (
@@ -74,10 +88,10 @@ class App extends Component {
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel />
-          <ItemStatusFilter />
+          <ItemStatusFilter onStatusFilter={this.handleStatusFilter} active={filter} />
         </div>
         <TodoList
-          todos={todoData}
+          todos={output}
           onDelete={this.deleteItem}
           onToggleDone={this.onToggleDone}
           onToggleImportant={this.onToggleImportant}
